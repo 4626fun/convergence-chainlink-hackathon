@@ -14,6 +14,7 @@ Reference templates: [smartcontractkit/cre-templates](https://github.com/smartco
 | Integrates at least one blockchain with external API/system/LLM/AI | Blockchain reads via `EVMClient` in `cre/cre-workflows/payout-integrity/main.ts`; external API bridge at `frontend/api/_handlers/cre/keeper/_alert.ts`; AI endpoint at `frontend/api/_handlers/cre/keeper/_aiAssess.ts` using `frontend/server/agent/eliza/llm.ts` |
 | Successful simulation via CRE CLI | `docs/hackathon/evidence/cre-payout-integrity-local-simulation.md` and `docs/hackathon/evidence/cre-keepr-queue-local-simulation.md` |
 | AI-assisted CRE workflow where deterministic logic remains authoritative | Deterministic checks and alert generation in `cre/cre-workflows/payout-integrity/main.ts`; advisory AI classification in `frontend/api/_handlers/cre/keeper/_aiAssess.ts`; fallback normalization in `cre/utils/payoutIntegrityAi.ts` |
+| Solana operational workflow path is demonstrated | Solana monitor implementation `cre/actions/keepr-solana-price-monitor.action.ts`, workflow `cre/workflows/keepr-solana-price-monitor.workflow.ts`, operator command path `/cre solana` in `frontend/server/agent/eliza/plugins/cre/index.ts`, and test proof `cre/tests/keepr-solana-price-monitor.test.ts` |
 | Tests covering new behavior | `cre/tests/payoutIntegrityAi.test.ts`, `frontend/api/__tests__/creKeeperAiAssess.test.ts` |
 | Public video walkthrough (3-5 min) | Script in `docs/hackathon/video-script.md` |
 | Public source code path | Preparation runbook in `docs/hackathon/public-source-packaging.md` |
@@ -34,6 +35,21 @@ Reference templates: [smartcontractkit/cre-templates](https://github.com/smartco
 - AI runtime: `frontend/server/agent/eliza/llm.ts`
 - Deterministic authority preserved: deterministic alert checks still decide alerting pipeline; AI is advisory output only
 - Simulation evidence: `docs/hackathon/evidence/cre-payout-integrity-local-simulation.md` includes `aiEnabled`, `aiVerdict`, `aiConfidence`
+
+## Solana-First Demo Path
+
+Primary operator-facing flow for demo:
+- `/cre solana` in `frontend/server/agent/eliza/plugins/cre/index.ts`
+- Solana monitor action in `cre/actions/keepr-solana-price-monitor.action.ts`
+- Solana monitor workflow definition in `cre/workflows/keepr-solana-price-monitor.workflow.ts`
+
+Non-mutating Solana proof command:
+
+```bash
+pnpm -C cre exec vitest run tests/keepr-solana-price-monitor.test.ts
+```
+
+This keeps the demo engaging while preserving CRE CLI simulation proof for submission requirements.
 
 ## Commands Used (Simulation-First)
 

@@ -17,6 +17,9 @@ This public repo is a scoped submission mirror for the Chainlink hackathon.
   - **CRE & AI**
 - Core orchestration workflow:
   - `cre/cre-workflows/payout-integrity/main.ts` (onchain checks + external HTTP + AI advisory)
+- Solana-first operator workflow (demo spotlight):
+  - `/cre solana` command path in `frontend/server/agent/eliza/plugins/cre/index.ts`
+  - Solana monitor logic in `cre/actions/keepr-solana-price-monitor.action.ts`
 
 Submission links:
 - Files using Chainlink: [`cre/README.md#files-using-chainlink`](cre/README.md#files-using-chainlink)
@@ -34,6 +37,7 @@ set -a && source .env && set +a
 node ../scripts/hackathon/mock-cre-api-server.mjs
 
 # Terminal B
+pnpm -C ../ exec vitest run tests/keepr-solana-price-monitor.test.ts
 cre workflow simulate ./payout-integrity --target local-simulation
 cre workflow simulate ./keepr-queue --target local-simulation
 ```
