@@ -1,0 +1,32 @@
+Workflow compiled
+2026-03-01T05:52:16Z [SIMULATION] Simulator Initialized
+
+2026-03-01T05:52:16Z [SIMULATION] Running trigger trigger=cron-trigger@1.0.0
+2026-03-01T05:52:16Z [USER LOG] Payout integrity monitor starting
+2026-03-01T05:52:16Z [USER LOG] Checking payout integrity for vault 0xA015954E2606d08967Aee3787456bB3A86a46A42
+2026-03-01T05:52:18Z [USER LOG] Check 3 ERROR: failed to read GaugeController vault()
+2026-03-01T05:52:18Z [USER LOG] Check 4 SKIP: No burn stream configured
+2026-03-01T05:52:18Z [USER LOG] Check 5 ERROR: failed to read GaugeController balance
+2026-03-01T05:52:18Z [USER LOG] AI assessment: enabled=true verdict=critical confidence=0.93
+2026-03-01T05:52:18Z [USER LOG] Sending 2 alert(s)
+
+Workflow Simulation Result:
+ {
+  "aiConfidence": 0.93,
+  "aiEnabled": true,
+  "aiProvider": "mock-ai",
+  "aiSuggestedAction": "Pause keeper-triggered writes and investigate immediately.",
+  "aiSummary": "Mock AI assessed 2 deterministic alert(s).",
+  "aiVerdict": "critical",
+  "alerts": [
+    "[critical] payout_recipient_mismatch: Creator Coin payoutRecipient (0x09b586c49fda002604dcdb4dd61bdc1aa5a01a01) != GaugeController (0xB471B53cD0A30289Bc3a2dc3c6dd913288F8baA1)",
+    "[warning] bps_config_changed: GaugeController BPS config differs from expected values"
+  ],
+  "alertsSent": 2,
+  "checksRun": 2,
+  "error": "",
+  "vaultAddress": "0xA015954E2606d08967Aee3787456bB3A86a46A42"
+}
+
+2026-03-01T05:52:18Z [SIMULATION] Execution finished signal received
+2026-03-01T05:52:18Z [SIMULATION] Skipping WorkflowEngineV2

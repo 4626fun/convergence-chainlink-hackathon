@@ -1,0 +1,18 @@
+Workflow compiled
+2026-03-01T05:52:22Z [SIMULATION] Simulator Initialized
+
+2026-03-01T05:52:22Z [SIMULATION] Running trigger trigger=cron-trigger@1.0.0
+2026-03-01T05:52:22Z [USER LOG] Keepr queue executor starting
+2026-03-01T05:52:22Z [USER LOG] Queue processing complete: processed=0 succeeded=0 failed=0 retried=0 skipped=0
+
+Workflow Simulation Result:
+ {
+  "failed": 0,
+  "processed": 0,
+  "retried": 0,
+  "skipped": 0,
+  "succeeded": 0
+}
+
+2026-03-01T05:52:22Z [SIMULATION] Execution finished signal received
+2026-03-01T05:52:22Z [SIMULATION] Skipping WorkflowEngineV2

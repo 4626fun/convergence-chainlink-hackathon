@@ -1,0 +1,45 @@
+# ==========================================================================
+# CRE Project Settings — 4626 Protocol Workflows
+# ==========================================================================
+# Template-aligned target structure:
+# - local-simulation  -> reproducible local `cre workflow simulate`
+# - staging-settings  -> deployment-intent settings with placeholders
+# - production-settings -> production deployment settings with placeholders
+#
+# Notes:
+# - `cre-cli.don-family` is only needed for DON deployment targets.
+# - `account.workflow-owner-address` is optional, but required for --unsigned
+#   workflow operations.
+# ==========================================================================
+
+local-simulation:
+  rpcs:
+    # CRE CLI requires an Ethereum mainnet RPC for some account/registry ops.
+    - chain-name: ethereum-mainnet
+      url: https://ethereum-rpc.publicnode.com
+    - chain-name: ethereum-mainnet-base-1
+      url: https://mainnet.base.org
+
+staging-settings:
+  cre-cli:
+    # Replace with your assigned DON family once approved.
+    don-family: "zone-a"
+  account:
+    # Optional for normal signed ops; required when using --unsigned.
+    workflow-owner-address: "(optional) multisig owner address"
+  rpcs:
+    - chain-name: ethereum-mainnet
+      url: https://mainnet.infura.io/v3/YOUR_API_KEY
+    - chain-name: ethereum-mainnet-base-1
+      url: https://base-mainnet.infura.io/v3/YOUR_API_KEY
+
+production-settings:
+  cre-cli:
+    don-family: "zone-a"
+  account:
+    workflow-owner-address: "(optional) multisig owner address"
+  rpcs:
+    - chain-name: ethereum-mainnet
+      url: https://mainnet.infura.io/v3/YOUR_API_KEY
+    - chain-name: ethereum-mainnet-base-1
+      url: https://base-mainnet.infura.io/v3/YOUR_API_KEY

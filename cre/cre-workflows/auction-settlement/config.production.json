@@ -1,0 +1,5 @@
+{
+  "schedule": "0 0 * * * *",
+  "apiBaseUrl": "https://4626.fun/api",
+  "chainName": "ethereum-mainnet-base-1"
+}

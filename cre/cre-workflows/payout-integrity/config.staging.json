@@ -1,0 +1,10 @@
+{
+  "schedule": "0 */30 * * * *",
+  "apiBaseUrl": "https://4626.fun/api",
+  "chainName": "ethereum-mainnet-base-1",
+  "expectedBurnShareBps": 2139,
+  "expectedLotteryShareBps": 6900,
+  "expectedCreatorShareBps": 0,
+  "expectedProtocolShareBps": 961,
+  "staleThresholdSeconds": 86400
+}

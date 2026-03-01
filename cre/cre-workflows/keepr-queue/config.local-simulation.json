@@ -1,0 +1,5 @@
+{
+  "schedule": "*/30 * * * * *",
+  "apiBaseUrl": "http://127.0.0.1:8789/api",
+  "maxActionsPerExecution": 1
+}

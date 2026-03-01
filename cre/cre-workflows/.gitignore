@@ -1,0 +1,18 @@
+# CRE build artifacts
+*.wasm
+.cre/
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Local scratch
+tmp.js
+
+# Dependencies
+node_modules/
+bun.lockb
+
+# OS
+.DS_Store

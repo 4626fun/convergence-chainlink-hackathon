@@ -1,0 +1,5 @@
+{
+  "schedule": "*/30 * * * * *",
+  "apiBaseUrl": "https://4626.fun/api",
+  "maxActionsPerExecution": 1
+}

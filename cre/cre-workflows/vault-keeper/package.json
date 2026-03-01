@@ -1,0 +1,15 @@
+{
+  "name": "vault-keeper",
+  "version": "1.4.3",
+  "private": true,
+  "scripts": {
+    "postinstall": "bunx cre-setup"
+  },
+  "dependencies": {
+    "@chainlink/cre-sdk": "^1.0.7",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
