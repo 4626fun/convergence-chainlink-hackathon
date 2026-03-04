@@ -1,0 +1,15 @@
+{
+  "schedule": "*/30 * * * * *",
+  "apiBaseUrl": "http://127.0.0.1:8789/api",
+  "workflowName": "runtime-orchestrator",
+  "checkpointIntervalSeconds": 60,
+  "minMatchedTransactionsForAction": 1,
+  "sinkEnabled": false,
+  "kvDisabled": true,
+  "initialCheckpoint": 0,
+  "mockLatestBlockNumber": 9704813,
+  "mockMatchedTransactions": 1,
+  "aws_region": "us-east-1",
+  "s3_bucket": "runtime-checkpoint-bucket",
+  "s3_key": "runtime-orchestrator/checkpoint.txt"
+}

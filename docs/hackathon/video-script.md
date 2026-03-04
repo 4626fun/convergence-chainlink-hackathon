@@ -5,7 +5,8 @@ Target length: **4 minutes**
 ## 0:00 - 0:25 — Intro
 
 1. “This is 4626, and we’re using Chainlink CRE as an orchestration layer for protocol operations.”
-2. “Today I’ll lead with our Solana workflow path, then show the Chainlink CRE simulation proof.”
+2. “The problem we solve is secure automation for a multi-chain, multi-strategy protocol where manual ops are brittle.”
+3. “Today I’ll lead with our Solana workflow path, then show the Chainlink CRE simulation proof.”
 3. Show `cre/README.md` and point to **Files Using Chainlink**.
 
 ## 0:25 - 1:10 — Solana Workflow Spotlight
@@ -74,8 +75,10 @@ Open:
 Say:
 1. “These are the simulation-first proof artifacts for judges.”
 2. “This checklist maps each requirement to exact files and outputs.”
+3. “It also maps each Chainlink product to its security strength: CRE for verified offchain compute, Data Feeds for reliable prices, and VRF for tamper-proof randomness.”
 
 ## 3:50 - 4:00 — Wrap
 
 1. “This project demonstrates Solana operational monitoring, plus Chainlink CRE orchestration across onchain reads, external APIs, and AI-assisted analysis.”
-2. “All source and docs are prepared for public submission, with secrets excluded.”
+2. “On rebalancing: today we rebalance within strategies, and the roadmap extends this to cross-strategy rebalance between Ajna, Charm, and idle capital under deterministic controls.”
+3. “All source and docs are prepared for public submission, with secrets excluded.”

@@ -1,0 +1,6 @@
+{
+  "checkpointKey": "manual-recovery",
+  "latestBlockNumber": 9705000,
+  "matchedTransactions": 3,
+  "reason": "operator-recovery"
+}

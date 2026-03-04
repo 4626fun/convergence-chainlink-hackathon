@@ -23,6 +23,14 @@ Core CRE workflow files:
 - `cre/cre-workflows/auction-settlement/workflow.yaml`
 - `cre/cre-workflows/payout-integrity/main.ts`
 - `cre/cre-workflows/payout-integrity/workflow.yaml`
+- `cre/cre-workflows/runtime-indexer-block/main.ts`
+- `cre/cre-workflows/runtime-indexer-block/workflow.yaml`
+- `cre/cre-workflows/runtime-indexer-data-fetch/main.ts`
+- `cre/cre-workflows/runtime-indexer-data-fetch/workflow.yaml`
+- `cre/cre-workflows/runtime-reference-feeds/main.ts`
+- `cre/cre-workflows/runtime-reference-feeds/workflow.yaml`
+- `cre/cre-workflows/runtime-orchestrator/main.ts`
+- `cre/cre-workflows/runtime-orchestrator/workflow.yaml`
 
 CRE-to-app orchestration bridge files:
 - `frontend/api/_handlers/cre/vaults/_active.ts`
@@ -32,6 +40,9 @@ CRE-to-app orchestration bridge files:
 - `frontend/api/_handlers/cre/keeper/_markSettled.ts`
 - `frontend/api/_handlers/cre/keeper/_alert.ts`
 - `frontend/api/_handlers/cre/keeper/_aiAssess.ts`
+- `frontend/api/_handlers/cre/runtime/_ingest.ts`
+- `frontend/api/_handlers/cre/runtime/_decisions.ts`
+- `frontend/api/_handlers/cre/runtime/_trigger.ts`
 - `frontend/api/_handlers/_routes.ts`
 - `frontend/server/agent/eliza/llm.ts`
 
@@ -67,6 +78,46 @@ Every 5 minutes, the unified `4626` workflow runs three tasks in sequence:
 | **Vault Keeper** | Deploy idle funds (`tend`), harvest yields (`report`) | Revenue |
 | **Auction Settlement** | Settle graduated CCA auctions (`sweepCurrency`, `sweepUnsoldTokens`) | Feature |
 | **Keepr Queue** | Process pending XMTP group ops + Neynar/Farcaster actions | Infrastructure |
+
+An optional always-on listener complements cron for lower-latency strategy reactions:
+
+| Service | What | Mode |
+|---------|------|------|
+| **Strategy Event Listener** | Subscribes to oracle v3Pool `Swap` events, evaluates Ajna/Charm thresholds, enqueues deduped strategy actions | Continuous (WebSocket) |
+
+Cron Ajna/Charm workflows stay enabled as fallback heartbeat and recovery path.
+
+## Problem This Solves
+
+4626 runs a multi-strategy, multi-chain protocol surface where value-critical operations span onchain state, external systems, and asynchronous workflows. Without deterministic orchestration, operators face:
+
+- missed or delayed actions (settlements, keeper actions, risk actions),
+- duplicated execution risk under retries and network instability,
+- inconsistent data assumptions across systems.
+
+This CRE layer solves that by making execution deterministic, auditable, and idempotent.
+
+## Why This Secures Value
+
+- **Reliable prices:** Chainlink Data Feeds and MVR reads provide accurate, reliable, non-manipulable reference inputs.
+- **Tamper-proof randomness:** Chainlink VRF 2.5 gives cryptographic proof randomness was generated from the request path.
+- **Verified offchain orchestration:** CRE executes offchain computation in deterministic workflow paths with capability-level guardrails.
+- **Operational safety:** idempotency keys, checkpoints, and replay-protection reduce duplicate writes and race-condition failures.
+
+## Chainlink Product Strengths Used Here
+
+| Product | Strength | Where used |
+|---|---|---|
+| **CRE** | Verified offchain computation with deterministic trigger/capability orchestration | `cre/cre-workflows/**` |
+| **Data Feeds + MVR** | Reliable, tamper-resistant oracle data for strategy and risk inputs | `cre/cre-workflows/runtime-reference-feeds/main.ts` |
+| **VRF 2.5** | Cryptographically verifiable randomness for fair lottery outcomes | `contracts/utilities/lottery/vrf/CreatorVRFConsumerV2_5.sol`, `contracts/utilities/lottery/vrf/ChainlinkVRFIntegratorV2_5.sol` |
+
+## Roadmap (Including Rebalance Direction)
+
+- **Now:** deterministic CRE orchestration for indexing, data fetch, feed verification, and decision checkpointing.
+- **Next:** broaden low-latency event triggers and protocol guardrail workflows.
+- **Rebalance roadmap:** today automation handles strategy-specific rebalancing (Ajna bucket movement, Charm vault rebalance). Next phase adds cross-strategy reallocation between Ajna, Charm, and idle balances under deterministic policy constraints.
+- **Later:** migrate more write paths to native CRE report receivers for end-to-end verifiable execution.
 
 ### Payout Integrity Monitor
 
@@ -393,6 +444,10 @@ cre/
 | `/api/cre/keeper/mark-settled` | POST | Records `graduated_at` / `settled_at` timestamps in DB |
 | `/api/cre/keeper/alert` | POST | Receives alerts from CRE workflows, forwards to webhook |
 | `/api/cre/keeper/aiAssess` | POST | AI advisory classification endpoint for payout-integrity (deterministic checks remain authoritative) |
+| `/api/cre/runtime/ingest` | POST/GET | Receives runtime workflow outputs and returns latest indexed snapshots |
+| `/api/cre/runtime/decisions` | POST | Stores runtime orchestration decisions, optional queue enqueue |
+| `/api/cre/runtime/trigger` | POST | App-to-CRE HTTP trigger dispatch (JSON-RPC + JWT auth) |
+| `/api/keepr/actions/enqueue` | POST | Enqueues deduped strategy/XMTP actions |
 | `/api/keepr/actions/pending` | GET | Returns pending queue actions |
 | `/api/keepr/actions/updateStatus` | POST | Updates action status |
 

@@ -1,0 +1,25 @@
+{
+  "schedule": "*/45 * * * * *",
+  "apiBaseUrl": "http://127.0.0.1:8789/api",
+  "workflowName": "runtime-indexer-data-fetch",
+  "sinkEnabled": false,
+  "graphqlEndpoint": "https://example.invalid/graphql",
+  "query": "{ poolManagers(first: 1) { id poolCount txCount totalVolumeUSD } }",
+  "variables": {},
+  "mockGraphData": {
+    "poolManagers": [
+      {
+        "id": "0xmock",
+        "poolCount": "1",
+        "txCount": "10",
+        "totalVolumeUSD": "1000.0"
+      }
+    ],
+    "bundles": [
+      {
+        "id": "1",
+        "ethPriceUSD": "3200.00"
+      }
+    ]
+  }
+}

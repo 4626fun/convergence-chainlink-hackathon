@@ -1,0 +1,47 @@
+{
+  "schedule": "0 */5 * * * *",
+  "apiBaseUrl": "http://127.0.0.1:8789/api",
+  "workflowName": "runtime-reference-feeds",
+  "sinkEnabled": false,
+  "chainName": "ethereum-mainnet-base-1",
+  "feeds": [
+    {
+      "name": "ETH/USD",
+      "address": "0x71041dddad3595F9A03DdcfBeA0eD0eB9fA1054F"
+    }
+  ],
+  "mvrFeeds": [
+    {
+      "name": "S&P Global SSA EURC",
+      "address": "0xcF99622B5440a338f45daEE134d531A4BE64251F"
+    }
+  ],
+  "mockResults": {
+    "feeds": [
+      {
+        "name": "ETH/USD",
+        "address": "0x71041dddad3595F9A03DdcfBeA0eD0eB9fA1054F",
+        "decimals": 8,
+        "latestAnswerRaw": "320000000000",
+        "scaled": "3200"
+      }
+    ],
+    "mvrFeeds": [
+      {
+        "name": "S&P Global SSA EURC",
+        "address": "0xcF99622B5440a338f45daEE134d531A4BE64251F",
+        "bundle": {
+          "lastModifiedDateTimeRaw": "1730000000",
+          "lastModifiedDateTimeRfc3339": "2024-10-27T03:33:20.000Z",
+          "securityId": "SSA-EURC",
+          "securityName": "S&P Global SSA EURC",
+          "ssaRaw": "102340000",
+          "ssaScaled": "1.0234",
+          "ssaDesc": "mock",
+          "ssaDecimal": 8
+        },
+        "bundleDecimals": [0, 0, 0, 8, 0]
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+local-simulation:
+  user-workflow:
+    workflow-name: "runtime-indexer-data-fetch-local-simulation"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.local-simulation.json"
+    secrets-path: "../secrets.yaml"
+
+staging-settings:
+  user-workflow:
+    workflow-name: "runtime-indexer-data-fetch-staging"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.staging.json"
+    secrets-path: "../secrets.yaml"
+
+production-settings:
+  user-workflow:
+    workflow-name: "runtime-indexer-data-fetch-production"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.production.json"
+    secrets-path: "../secrets.yaml"

@@ -1,0 +1,13 @@
+{
+  "schedule": "0 */2 * * * *",
+  "apiBaseUrl": "https://4626.fun/api",
+  "workflowName": "runtime-orchestrator",
+  "checkpointIntervalSeconds": 300,
+  "minMatchedTransactionsForAction": 2,
+  "sinkEnabled": true,
+  "kvDisabled": false,
+  "initialCheckpoint": 0,
+  "aws_region": "us-east-1",
+  "s3_bucket": "your-production-runtime-checkpoints",
+  "s3_key": "runtime-orchestrator/checkpoint.txt"
+}

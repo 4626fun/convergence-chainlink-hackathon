@@ -20,6 +20,50 @@ Reference templates: [smartcontractkit/cre-templates](https://github.com/smartco
 | Public source code path | Preparation runbook in `docs/hackathon/public-source-packaging.md` |
 | README includes links to files using Chainlink | `cre/README.md` section: **Files Using Chainlink** |
 
+## Problem We Are Solving
+
+4626 is a multi-strategy, multi-chain creator vault protocol. That creates a hard operations problem:
+
+- Onchain state changes continuously (vault idle balances, strategy thresholds, auction graduation, fee routes).
+- Cross-system dependencies exist across chains, APIs, and bots.
+- Manual operations are error-prone and introduce security and liveness risk (missed actions, duplicated actions, delayed responses).
+
+The core problem is how to run this system with deterministic, auditable, and tamper-resistant automation while preserving decentralization properties.
+
+## Why This Solution Secures Value
+
+- **Capital protection:** CRE workflows continuously enforce risk and settlement checks, reducing stale or missed operations.
+- **Payout integrity:** deterministic policy checks detect misconfigurations before value leakage.
+- **Price integrity:** Chainlink Data Feeds/MVR reads provide reliable, non-manipulable reference pricing inputs.
+- **Fair randomness:** Chainlink VRF 2.5 provides cryptographic proof that lottery randomness was generated from a valid request and not manipulated.
+- **Operational integrity:** idempotent keys, checkpointing, replay protection, and deterministic consensus paths reduce double-execution and race-condition risk.
+
+## Chainlink Product Strengths In This Architecture
+
+| Chainlink product | Where used | Product strength | Value to 4626 |
+|---|---|---|---|
+| **Chainlink Runtime Environment (CRE)** | `cre/cre-workflows/**` (e.g. `runtime-indexer-block`, `runtime-indexer-data-fetch`, `runtime-reference-feeds`, `runtime-orchestrator`) | Verified offchain computation with deterministic workflow execution and capability composition (Cron/HTTP/EVM). | Reliable orchestration layer for complex protocol operations across onchain and offchain systems. |
+| **Chainlink Data Feeds + MVR** | `cre/cre-workflows/runtime-reference-feeds/main.ts` | Accurate, reliable, tamper-resistant oracle network data and bundle decoding support. | Prevents strategy/payout logic from relying on manipulable or stale price inputs. |
+| **Chainlink VRF 2.5** | `contracts/utilities/lottery/vrf/CreatorVRFConsumerV2_5.sol`, `contracts/utilities/lottery/vrf/ChainlinkVRFIntegratorV2_5.sol`, `contracts/utilities/lottery/CreatorLotteryManager.sol` | Verifiable randomness with cryptographic proof linked to each request. | Fair winner selection and trust-minimized lottery outcomes for creator rewards. |
+
+## Roadmap (Where This Goes Next)
+
+### Current
+
+- Template-first CRE orchestration for push + pull + feed verification + durable checkpoints.
+- Deterministic ingestion and decision workflows with replay protection and idempotent persistence.
+
+### Near-term
+
+- Shift more event paths from webhook ingestion to native `LogTrigger` where it improves latency and trust assumptions.
+- Expand runtime decision workflows to additional protocol health and risk controls.
+
+### Rebalancing roadmap (answer to “does it rebalance between strategies?”)
+
+- **Today:** automated rebalancing is strategy-specific (for example, Ajna bucket movement and Charm vault rebalance triggers).
+- **Next step:** add cross-strategy allocation logic so capital can rebalance **between** strategies (Ajna/Charm/idle) under deterministic policy constraints.
+- **Future:** integrate CRE native write receiver contracts to remove remaining bridge boundaries and allow end-to-end verifiable execution paths.
+
 ## Track Coverage
 
 ### DeFi & Tokenization
