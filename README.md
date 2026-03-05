@@ -55,7 +55,6 @@ Expected proof markers:
   - [Deployment Lifecycle](#2-deployment-lifecycle-phased-and-guarded)
   - [Fee + Incentive Routing](#3-fee--incentive-routing)
 - [Core Protocol Components](#core-protocol-components)
-- [Supported Chains](#supported-chains-current-configuration)
 - [Quick Start (Local Development)](#quick-start-local-development)
 - [Testing and Build Commands](#testing-and-build-commands)
 - [Frontend Routes and API Surface](#frontend-routes-and-api-surface)
@@ -88,7 +87,7 @@ This monorepo includes:
 flowchart LR
   subgraph Experience["Experience Plane"]
     User["Creator / Operator"]
-    App["Web App (`frontend/`)\nRoutes: `/deploy`, `/vault/:address`"]
+    App["Web App (`frontend/`) - Routes: `/deploy`, `/vault/:address`"]
   end
 
   subgraph Control["Control Plane"]
@@ -153,19 +152,19 @@ Creator deployment is exposed as one user flow, but executed as guarded phases w
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"fontFamily":"Inter, ui-sans-serif, system-ui","fontSize":"13px","lineColor":"#64748B","primaryColor":"#FFFFFF","primaryTextColor":"#0F172A"}}}%%
 flowchart TD
-  Start["User starts `/deploy`"] --> Identity{"Canonical identity +\nwallet capability checks"}
-  Identity --> Access{"Creator access gate\n(allowlist/profile checks)"}
-  Access --> Salt["Derive deterministic addresses\n(versioned CREATE2 salts)"]
+  Start["User starts `/deploy`"] --> Identity{"Canonical identity + wallet capability checks"}
+  Identity --> Access{"Creator access gate (allowlist/profile checks)"}
+  Access --> Salt["Derive deterministic addresses (versioned CREATE2 salts)"]
 
-  Salt --> P1["Phase 1\nDeploy vault + wrapper + share token"]
-  P1 --> P2Core["Phase 2 Core\nDeploy gauge + strategy + oracle"]
-  P2Core --> P2Final["Phase 2 Finalize\nRegister + wire + configure"]
-  P2Final --> P3["Phase 3\nOptional strategy/post-config"]
-  P3 --> P4{"Phase 4 required?\nDeferred launch path"}
-  P4 -->|Yes| Launch["Phase 4\nActivate deferred launch"]
+  Salt --> P1["Phase 1: Deploy vault + wrapper + share token"]
+  P1 --> P2Core["Phase 2 Core: Deploy gauge + strategy + oracle"]
+  P2Core --> P2Final["Phase 2 Finalize: Register + wire + configure"]
+  P2Final --> P3["Phase 3: Optional strategy/post-config"]
+  P3 --> P4{"Phase 4 required? Deferred launch path"}
+  P4 -->|Yes| Launch["Phase 4: Activate deferred launch"]
   P4 -->|No| Ready["Deployment ready"]
   Launch --> Ready
-  Ready --> Ops["CRE keepers + API ops\n(tend/report/settle)"]
+  Ready --> Ops["CRE keepers + API ops (tend/report/settle)"]
 
   Identity -. "fail with clear reason" .-> Blocked["Blocked (actionable error)"]
   Access -. "fail with clear reason" .-> Blocked
@@ -187,19 +186,19 @@ The documented model applies a 6.9% trading fee to DEX trades (buy + sell), then
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"fontFamily":"Inter, ui-sans-serif, system-ui","fontSize":"13px","lineColor":"#64748B","primaryColor":"#FFFFFF","primaryTextColor":"#0F172A"}}}%%
 flowchart LR
-  Trade["DEX trade\n(buy or sell)"] --> Fee["6.9% trading fee"]
+  Trade["DEX trade (buy or sell)"] --> Fee["6.9% trading fee"]
   Fee --> Gauge["CreatorGaugeController routing"]
 
-  Gauge --> Lottery["69.00%\nLottery pool"]
-  Gauge --> Burn["21.39%\nBurn + PPS support"]
-  Gauge --> Rewards["9.61%\nVoter rewards"]
+  Gauge --> Lottery["69.00% - Lottery pool"]
+  Gauge --> Burn["21.39% - Burn + PPS support"]
+  Gauge --> Rewards["9.61% - Voter rewards"]
 
   Lottery --> VRF["Chainlink VRF draw"]
-  VRF --> Payout["Winner payout\n(vault shares)"]
+  VRF --> Payout["Winner payout (vault shares)"]
   Burn --> PPS["Vault share value support"]
   Rewards --> Gov["ve4626 / gauge incentives"]
 
-  Untaxed["Untaxed actions:\ndeposit, withdraw,\nwrap, unwrap"] -. "0% trading fee" .-> Vault["CreatorOVault accounting"]
+  Untaxed["Untaxed actions: deposit, withdraw, wrap, unwrap"] -. "0% trading fee" .-> Vault["CreatorOVault accounting"]
 
   classDef source fill:#DBEAFE,stroke:#2563EB,stroke-width:2px,color:#1E3A8A;
   classDef router fill:#E0F2FE,stroke:#0284C7,stroke-width:2px,color:#0C4A6E;
@@ -226,21 +225,6 @@ flowchart LR
 | `CreatorLotteryManager` | Executes lottery odds/payout flow with VRF randomness |
 | `CreatorOracle` | Price and accounting inputs for vault/share mechanics |
 | `CreatorCCAStrategy` | CCA launch path and post-auction liquidity transition |
-
-## Supported Chains (Current Configuration)
-
-Source of truth: `docs/chains.md`.
-
-| Network | Chain ID | Status |
-|---------|----------|--------|
-| Base | 8453 | Hub chain |
-| Ethereum | 1 | Configured |
-| Arbitrum | 42161 | Configured |
-| BSC | 56 | Configured |
-| Avalanche | 43114 | Configured |
-| Monad | 10143 | Configured |
-| Sonic | 146 | Configured |
-| HyperEVM | 999 | Configured |
 
 ## Quick Start (Local Development)
 
