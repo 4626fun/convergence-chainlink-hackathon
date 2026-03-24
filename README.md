@@ -68,7 +68,7 @@ flowchart LR
 ## Requirement Checklist
 
 - [x] Project description with use case and architecture stack.
-- [x] 3-5 minute video script included (`docs/hackathon/video-script.md`), public link placeholder included (`TBD`).
+- [x] 3-5 minute video script included.
 - [x] Public source code in this public repo.
 - [x] README links to files that use Chainlink.
 - [x] Sponsor-prize mapping/checklist documented in `docs/hackathon/chainlink-cre-submission.md`.
