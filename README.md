@@ -4,7 +4,7 @@ Converge is a scoped hackathon submission from the 4626 codebase, focused only o
 
 - Tracks: **DeFi & Tokenization**, **CRE & AI**
 - Public source code: <https://github.com/4626fun/convergence-chainlink-hackathon>
-- Public demo video (3-5 min): `TBD`
+- Public demo video (3-5 min): <https://cre.4626.fun>
 - Requirement mapping: [`docs/hackathon/chainlink-cre-submission.md`](docs/hackathon/chainlink-cre-submission.md)
 - Video script: [`docs/hackathon/video-script.md`](docs/hackathon/video-script.md)
 - Full A-I writeup: [`docs/hackathon/chainlink-cre-a-to-i.md`](docs/hackathon/chainlink-cre-a-to-i.md)
@@ -19,7 +19,7 @@ Converge is a scoped hackathon submission from the 4626 codebase, focused only o
    - `cre workflow simulate ./keepr-queue --target local-simulation`
 3. Open simulation proof snapshots under [`docs/hackathon/evidence/`](docs/hackathon/evidence/).
 4. Confirm Chainlink file inventory: [`cre/README.md#files-using-chainlink`](cre/README.md#files-using-chainlink).
-5. Watch the 3-5 minute walkthrough (replace `TBD` URL above before submitting).
+5. Watch the 3-5 minute walkthrough <https://cre.4626.fun>.
 
 ## Project Description (Use Case + Architecture)
 
