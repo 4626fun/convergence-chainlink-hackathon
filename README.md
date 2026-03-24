@@ -1,6 +1,6 @@
-# Converge | A Chainlink Hackathon Submission
+# Convergence | A Chainlink Hackathon Submission
 
-Converge is a scoped hackathon submission from the 4626 codebase, focused only on Chainlink-powered automation.
+Convergence is a scoped hackathon submission from the 4626 codebase, focused only on Chainlink-powered automation.
 
 - Tracks: **DeFi & Tokenization**, **CRE & AI**
 - Public source code: <https://github.com/4626fun/convergence-chainlink-hackathon>
